@@ -27,7 +27,11 @@ std::vector<std::string> split(const std::string& s, char delimiter) {
 }
 
 int main(int argc, char* argv[]) {
-    std::string filename = "frames_parser.log";
+    if (argc < 2) {
+        std::cout << "Пожалуйста, укажите текст в качестве аргумента командной строки." << std::endl;
+        return 0;
+    }
+    std::string filename = argv[1];
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Не удалось открыть файл " << filename << std::endl;
