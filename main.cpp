@@ -27,14 +27,14 @@ std::vector<std::string> split(const std::string& s, char delimiter) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        std::cout << "Пожалуйста, укажите текст в качестве аргумента командной строки." << std::endl;
-        return 0;
-    }
-    std::string filename = argv[1];
-    std::ifstream file(filename);
+//    if (argc < 2) {
+//        std::cout << "Пожалуйста, укажите текст в качестве аргумента командной строки." << std::endl;
+//        return 0;
+//    }
+//    std::string filename = argv[1];
+    std::ifstream file("frames_parser.log");
     if (!file.is_open()) {
-        std::cerr << "Не удалось открыть файл " << filename << std::endl;
+//        std::cerr << "Не удалось открыть файл " << filename << std::endl;
         return 1;
     }
 
@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
                     if (addressCount.find(macAddress) != addressCount.end()) {
                         addressCount[macAddress]++;
                     } else {
-                        addressCount[macAddress] = 0;
+                        addressCount[macAddress] = 1;
                     }
                 }
             }
