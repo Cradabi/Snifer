@@ -9,6 +9,10 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+// Глобальные переменные для argc и argv
+int g_argc;
+char** g_argv;
+
 std::string delete_spaces(const std::string& str) {
     auto start = std::find_if_not(str.begin(), str.end(), ::isspace);
     auto end = std::find_if_not(str.rbegin(), str.rend(), ::isspace).base();
@@ -62,7 +66,12 @@ std::string process_file(const std::string& filename) {
 }
 
 TEST(MacAddressCounterTest, CorrectOutput) {
-    std::string testFilename = "frames_parser.log";
+    std::string testFilename;
+    if (g_argc > 1) {
+        testFilename = g_argv[1];
+    } else {
+        FAIL() << "No filename provided";
+    }
 
     std::string result = process_file(testFilename);
 
@@ -83,11 +92,12 @@ TEST(MacAddressCounterTest, CorrectOutput) {
     if (result != expected) {
         FAIL() << "Expected output:\n" << expected << "\nActual output:\n" << result;
     }
-
-    std::remove(testFilename.c_str());
 }
 
 int main(int argc, char **argv) {
+    g_argc = argc;
+    g_argv = argv;
+
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
