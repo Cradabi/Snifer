@@ -12,6 +12,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
+
+
+add_executable(untitled
+  mac_address_counter.cpp
+)
+
 enable_testing()
 
 # Измените эту строку
@@ -20,12 +26,12 @@ find_package(GTest REQUIRED)
 find_package(Qt5Core REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(untitled
-  main.cpp
-)
-
 target_link_libraries(untitled Qt5::Core)
 
-target_link_libraries(untitled ${GTEST_LIBRARIES} pthread)
+add_executable(mac_counter_test
+  test_mac_address_counter.cpp
+)
 
-add_test(NAME Test1 COMMAND untitled)
+target_link_libraries(mac_counter_test ${GTEST_LIBRARIES} pthread)
+
+add_test(NAME MacCounterTest COMMAND mac_counter_test)
