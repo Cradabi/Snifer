@@ -1,10 +1,8 @@
-#include <iostream>
+#include "mac_address_counter.h"
 #include <fstream>
 #include <sstream>
-#include <string>
-#include <vector>
-#include <unordered_map>
 #include <algorithm>
+#include <unordered_map>
 
 std::string delete_spaces(const std::string& str) {
     auto start = std::find_if_not(str.begin(), str.end(), ::isspace);
@@ -56,16 +54,4 @@ std::string process_file(const std::string& filename) {
     }
 
     return result.str();
-}
-
-int main(int argc, char** argv) {
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <filename>" << std::endl;
-        return 1;
-    }
-
-    std::string result = process_file(argv[1]);
-    std::cout << result;
-
-    return 0;
 }
